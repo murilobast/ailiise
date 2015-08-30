@@ -1,0 +1,84 @@
+head
+	script(src='/annyang.min.js')
+	script(src='/responsivevoice.js')
+	title AiLiise
+body
+	header
+		| {{getCommands}}
+		+navbar
+		main
+			section.section
+				.container
+					+ailise
+			section.section
+				.container
+					+form
+					+home
+	+footer
+
+template(name="navbar")
+	nav.blue
+		.container
+			div.nav-wrapper
+				a(href="/").brand-logo AiLiise
+				ul.right
+					li: a(href="//github.com") GitHub
+					li: a(href="/about") About
+
+template(name="footer")
+	footer.page-footer.blue
+		.container
+			.row
+				.col.s6
+					h5.white-text AiLiise
+					p.grey-text.text-lighten-4 Uma "semi-inteligencia artificial" feita pela comunidade.
+				.col.s4.offset-s2
+					h5.white-text Links
+					ul
+						li: a(href="//github.com").grey-text.text-lighten-4 GitHub
+						li: a(href="/about").grey-text.text-lighten-4 About
+		.footer-copyright
+			.container
+				| @ 2015 Open-source = Open-minded
+				a(href="//github.com/murilobast").grey-text.text-lighten-4.right murilobast
+
+template(name="home")
+	.row.center
+		p.flow-text.col.s8.offset-s2 Nos ajude a criar um assistente pessoal open-source. É muito simples e você pode utilizar da forma que desejar!
+	.row
+		.col.s6.offset-s3.z-depth-1
+			+atForm
+
+template(name="form")
+	.row
+		form.col.s8.offset-s2#addCommand
+			h3 Adicionar um comando
+			.input-field.col.s12
+				input(name='name' type="text")#name
+				label(for="name") Nome do comando
+			.input-field.col.s12
+				input(name='trigger' type="text")#trigger
+				label(for="trigger") Comando
+			.input-field.col.s12
+				input(name='action' type="text")#action
+				label(for="action") Ação
+			button(type="submit").col.s8.offset-s2.btn Adicionar
+
+template(name="ailise")
+	.row
+		.col.s8.offset-s2
+			ul.collection.z-depth-1
+				+message(text="Olá, meu nome é AiLiise!" fromUser = false)
+				+message(text="Me faça uma pergunta, ou cadastre-se para me ensinar algo." fromUser = false)
+
+template(name="message")
+	if fromUser
+		li.collection-item.avatar.active.blue.lighten-2
+			img(src="/mustache.jpg").circle
+			span.title Você
+			p {{text}}
+	else
+		li.collection-item.avatar
+			img(src="/ailiise0.png").circle
+			span.title AiLiise
+			p {{text}}
